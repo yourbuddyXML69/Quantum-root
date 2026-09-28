@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantoom Root — Unified Quantum + AI + Cybersecurity Platform (Standalone)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            quantoom: {
+              bg: '#080B10',
+              card: '#0D121B',
+              border: '#1E293B',
+              blue: '#00E5FF',
+              violet: '#8A2BE2',
+              green: '#00FF66',
+            }
+          },
+          boxShadow: {
+            'glow-blue': '0 0 20px rgba(0, 229, 255, 0.35)',
+            'glow-violet': '0 0 20px rgba(138, 43, 226, 0.35)',
+            'glow-green': '0 0 20px rgba(0, 255, 102, 0.35)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #080B10;
+      color: #F1F5F9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-image: 
+        radial-gradient(at 10% 20%, rgba(0, 229, 255, 0.06) 0px, transparent 50%),
+        radial-gradient(at 90% 10%, rgba(138, 43, 226, 0.06) 0px, transparent 50%),
+        radial-gradient(at 50% 80%, rgba(0, 255, 102, 0.05) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #080B10; }
+    ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 3px; }
+    .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- ============================================================ -->
+  <!-- TOP NAVIGATION -->
+  <!-- ============================================================ -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#080B10]/90 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('community')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 via-indigo-600 to-purple-600 p-[2px] shadow-glow-blue flex items-center justify-center">
+          <div class="w-full h-full bg-[#080B10] rounded-[10px] flex items-center justify-center text-cyan-400 font-bold text-lg">
+            ⚛
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center space-x-1.5">
+            <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-cyan-400 via-purple-300 to-emerald-400 bg-clip-text text-transparent">
+              QUANTOOM
+            </span>
+            <span class="text-xs px-1.5 py-0.5 rounded font-mono font-bold bg-cyan-950 text-cyan-300 border border-cyan-800/80">
+              ROOT
+            </span>
+          </div>
+          <p class="text-[10px] text-slate-400 font-mono tracking-wider">QUANTUM • AI • CYBER</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="hidden md:flex items-center space-x-1 bg-slate-900/80 border border-slate-800 rounded-full px-3 py-1 text-xs">
+        <button onclick="switchTab('community')" id="tab-btn-community" class="px-3 py-1.5 rounded-full font-medium text-cyan-400 bg-slate-800 border border-slate-700">Community Hub</button>
+        <button onclick="switchTab('quantum')" id="tab-btn-quantum" class="px-3 py-1.5 rounded-full font-medium text-slate-400 hover:text-slate-200">Quantum Lab</button>
+        <button onclick="switchTab('ai')" id="tab-btn-ai" class="px-3 py-1.5 rounded-full font-medium text-slate-400 hover:text-slate-200">AI Copilot</button>
+        <button onclick="switchTab('cyber')" id="tab-btn-cyber" class="px-3 py-1.5 rounded-full font-medium text-slate-400 hover:text-slate-200">Cyber Range</button>
+        <button onclick="switchTab('convergence')" id="tab-btn-convergence" class="px-3 py-1.5 rounded-full font-medium text-slate-400 hover:text-slate-200">Convergence Projects</button>
+        <button onclick="switchTab('leaderboard')" id="tab-btn-leaderboard" class="px-3 py-1.5 rounded-full font-medium text-slate-400 hover:text-slate-200">Leaderboard</button>
+      </nav>
+
+      <!-- PQC Status & User -->
+      <div class="flex items-center space-x-3">
+        <button onclick="openPQCModal()" class="flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-mono bg-emerald-950/60 text-emerald-300 border border-emerald-500/40 shadow-glow-green">
+          <span>PQC: ML-KEM-768</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        </button>
+        <div class="flex items-center space-x-2 pl-2 border-l border-slate-800">
+          <div class="w-8 h-8 rounded-full bg-cyan-950 border border-cyan-700 flex items-center justify-center font-mono text-xs text-cyan-300 font-bold">
+            Ω
+          </div>
+          <div class="hidden lg:block text-left text-xs font-mono">
+            <div class="font-bold text-slate-200">dr_elena</div>
+            <div class="text-[10px] text-cyan-400">2,840 REP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- HERO BANNER -->
+  <!-- ============================================================ -->
+  <section class="border-b border-slate-800/80 bg-gradient-to-b from-slate-950 via-[#0A0E17] to-[#080B10] py-8 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="space-y-2 max-w-2xl">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-mono bg-cyan-950/60 border border-cyan-800 text-cyan-300">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+          <span>NIST FIPS 203 & 204 POST-QUANTUM HARDENED</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+          Root access to the <span class="bg-gradient-to-r from-cyan-400 via-purple-300 to-emerald-400 bg-clip-text text-transparent">quantum-AI-cyber frontier</span>
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          The unified community ecosystem for quantum researchers, AI engineers, and ethical cybersecurity specialists.
+        </p>
+      </div>
+
+      <!-- Quick Metrics -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full md:w-auto">
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
+          <div class="text-[10px] text-slate-400 font-mono">⚛️ Circuits Run</div>
+          <div class="text-lg font-bold text-white font-mono mt-0.5">98,450+</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
+          <div class="text-[10px] text-slate-400 font-mono">🤖 AI Queries</div>
+          <div class="text-lg font-bold text-white font-mono mt-0.5">312,500+</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
+          <div class="text-[10px] text-slate-400 font-mono">🛡️ CTF Solves</div>
+          <div class="text-lg font-bold text-white font-mono mt-0.5">18,400+</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
+          <div class="text-[10px] text-slate-400 font-mono">🔒 PQC Status</div>
+          <div class="text-lg font-bold text-emerald-400 font-mono mt-0.5">78.4%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- MAIN VIEWPORT CONTAINER -->
+  <!-- ============================================================ -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 py-8 w-full">
+
+    <!-- 1. COMMUNITY HUB -->
+    <div id="view-community" class="space-y-6">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-900/60 border border-slate-800 p-4 rounded-2xl">
+        <div class="flex flex-wrap gap-2" id="feed-filters">
+          <button onclick="filterFeed('ALL')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-white border border-slate-700">All Channels</button>
+          <button onclick="filterFeed('QUANTUM')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-950 text-slate-400 hover:text-white border border-slate-800">⚛️ Quantum</button>
+          <button onclick="filterFeed('AI')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-950 text-slate-400 hover:text-white border border-slate-800">🤖 AI</button>
+          <button onclick="filterFeed('CYBERSECURITY')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-950 text-slate-400 hover:text-white border border-slate-800">🛡️ Cyber</button>
+          <button onclick="filterFeed('CONVERGENCE')" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-950 text-slate-400 hover:text-white border border-slate-800">⚡ Convergence</button>
+        </div>
+        <button onclick="openNewPostModal()" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition shadow-glow-blue flex items-center gap-1.5">
+          <span>+</span> New Post / Question
+        </button>
+      </div>
+
+      <div id="feed-container" class="space-y-4">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- 2. QUANTUM WORKBENCH -->
+    <div id="view-quantum" class="hidden space-y-6">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-4 bg-slate-900/60 border border-slate-800 p-4 rounded-2xl">
+        <div>
+          <h2 class="text-xl font-bold flex items-center gap-2 text-white">
+            <span class="p-1 rounded bg-cyan-950 border border-cyan-800 text-cyan-400">⚛</span>
+            Quantum Circuit Workbench & Statevector Simulator
+          </h2>
+          <p className="text-xs text-slate-400">Simulate exact complex amplitudes, Bloch sphere polar angles (θ, φ), and export OpenQASM 3.0.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="loadAlgo('bell')" class="px-2.5 py-1 text-xs rounded-lg bg-cyan-950 border border-cyan-800 text-cyan-300 font-medium">Bell State |Φ+⟩</button>
+          <button onclick="loadAlgo('grover')" class="px-2.5 py-1 text-xs rounded-lg bg-purple-950 border border-purple-800 text-purple-300 font-medium">Grover (|11⟩)</button>
+          <button onclick="loadAlgo('teleport')" class="px-2.5 py-1 text-xs rounded-lg bg-emerald-950 border border-emerald-800 text-emerald-300 font-medium">Teleportation (3Q)</button>
+          <button onclick="loadAlgo('qft')" class="px-2.5 py-1 text-xs rounded-lg bg-amber-950 border border-amber-800 text-amber-300 font-medium">3-Qubit QFT</button>
+          <button onclick="loadAlgo('kyber')" class="px-2.5 py-1 text-xs rounded-lg bg-rose-950 border border-rose-800 text-rose-300 font-medium">PQC Lattice Demo</button>
+        </div>
+      </div>
+
+      <!-- Circuit Canvas & Controls -->
+      <div class="bg-[#0D121B] border border-slate-800 rounded-2xl p-5 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3 text-xs">
+          <div class="flex items-center space-x-3">
+            <label class="text-slate-300">Qubits:</label>
+            <select id="quantum-qubit-select" onchange="changeQubits(this.value)" class="bg-slate-900 border border-slate-700 text-cyan-300 rounded px-2 py-1 font-mono">
+              <option value="1">1 Qubit (2 States)</option>
+              <option value="2" selected>2 Qubits (4 States)</option>
+              <option value="3">3 Qubits (8 States)</option>
+              <option value="4">4 Qubits (16 States)</option>
+            </select>
+            <span class="text-slate-500">•</span>
+            <span id="circuit-meta-text" class="text-slate-400 font-mono">2 Gates placed</span>
+          </div>
+          <div class="flex space-x-2">
+            <button onclick="resetCircuit()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">Reset</button>
+            <button onclick="runSimulation()" class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-xs shadow-glow-blue">▶ Simulate Circuit</button>
+          </div>
+        </div>
+
+        <!-- Qubit Rails -->
+        <div id="qubit-wires-container" class="space-y-4 py-2">
+          <!-- Dynamic rails rendered by JS -->
+        </div>
+
+        <!-- Gate Toolbox -->
+        <div class="pt-3 border-t border-slate-800">
+          <div class="flex items-center justify-between mb-2 text-xs">
+            <span class="font-bold text-slate-300">Gate Toolbox (Click gate to add to Wire |q0⟩):</span>
+            <div class="flex items-center space-x-2 text-slate-400 font-mono">
+              <span>Target Wire:</span>
+              <select id="target-wire-select" class="bg-slate-900 border border-slate-700 text-purple-300 rounded px-2 py-0.5">
+                <option value="0">|q0⟩</option>
+                <option value="1" selected>|q1⟩</option>
+                <option value="2">|q2⟩</option>
+                <option value="3">|q3⟩</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="addGate('H')" class="px-3 py-1.5 rounded bg-cyan-600 hover:bg-cyan-500 text-xs font-bold font-mono">H</button>
+            <button onclick="addGate('X')" class="px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-xs font-bold font-mono">X</button>
+            <button onclick="addGate('Y')" class="px-3 py-1.5 rounded bg-teal-600 hover:bg-teal-500 text-xs font-bold font-mono">Y</button>
+            <button onclick="addGate('Z')" class="px-3 py-1.5 rounded bg-purple-600 hover:bg-purple-500 text-xs font-bold font-mono">Z</button>
+            <button onclick="addGate('S')" class="px-3 py-1.5 rounded bg-indigo-600 hover:bg-indigo-500 text-xs font-bold font-mono">S</button>
+            <button onclick="addGate('T')" class="px-3 py-1.5 rounded bg-violet-600 hover:bg-violet-500 text-xs font-bold font-mono">T</button>
+            <button onclick="addGate('RX')" class="px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-500 text-xs font-bold font-mono">RX(π/2)</button>
+            <button onclick="addGate('RY')" class="px-3 py-1.5 rounded bg-sky-600 hover:bg-sky-500 text-xs font-bold font-mono">RY(π/2)</button>
+            <button onclick="addGate('RZ')" class="px-3 py-1.5 rounded bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-bold font-mono">RZ(π/2)</button>
+            <button onclick="addGate('CNOT')" class="px-3 py-1.5 rounded bg-amber-600 hover:bg-amber-500 text-xs font-bold font-mono">CNOT</button>
+            <button onclick="addGate('CZ')" class="px-3 py-1.5 rounded bg-orange-600 hover:bg-orange-500 text-xs font-bold font-mono">CZ</button>
+            <button onclick="addGate('SWAP')" class="px-3 py-1.5 rounded bg-pink-600 hover:bg-pink-500 text-xs font-bold font-mono">SWAP</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulation Results View -->
+      <div id="sim-results-box" class="bg-[#0D121B] border border-slate-800 rounded-2xl p-5 space-y-4">
+        <!-- Results rendered by JS -->
+      </div>
+    </div>
+
+    <!-- 3. AI COPILOT & CODE REVIEWER -->
+    <div id="view-ai" class="hidden space-y-6">
+      <div class="flex items-center justify-between bg-slate-900/60 border border-slate-800 p-4 rounded-2xl">
+        <div>
+          <h2 class="text-xl font-bold flex items-center gap-2 text-white">
+            <span class="text-purple-400">🤖</span> AI Copilot & Static Code Reviewer
+          </h2>
+          <p class="text-xs text-slate-400">RAG knowledge synthesizer, Shor-vulnerability static analyzer, and paper summarizer.</p>
+        </div>
+        <div class="flex space-x-2">
+          <button onclick="switchAISubTab('chat')" id="ai-sub-chat-btn" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-purple-900 text-purple-200 border border-purple-700">RAG Research Chat</button>
+          <button onclick="switchAISubTab('review')" id="ai-sub-review-btn" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white">Security Code Review</button>
+        </div>
+      </div>
+
+      <!-- AI Chat Subtab -->
+      <div id="ai-chat-subtab" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 bg-[#0D121B] border border-slate-800 rounded-2xl flex flex-col h-[550px] overflow-hidden">
+          <div class="px-4 py-2 bg-slate-900 border-b border-slate-800 flex justify-between items-center text-xs">
+            <span class="font-mono text-purple-300">Model: GPT-4o / Claude 3.5 / Gemini (Auto-Routed)</span>
+            <span class="font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">GUARDRAIL: ACTIVE</span>
+          </div>
+          <div id="ai-messages-container" class="flex-1 overflow-y-auto p-4 space-y-3 text-xs">
+            <!-- Messages rendered by JS -->
+          </div>
+          <form onsubmit="handleAISubmit(event)" class="p-3 bg-slate-900/80 border-t border-slate-800 flex gap-2">
+            <input id="ai-input" type="text" placeholder="Ask about Shor's algorithm, NIST FIPS 203 ML-KEM, Bell states, or QML..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-200 focus:outline-none focus:border-purple-500">
+            <button type="submit" class="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition">Ask AI</button>
+          </form>
+        </div>
+
+        <!-- Suggested inquiries -->
+        <div class="bg-[#0D121B] border border-slate-800 rounded-2xl p-5 space-y-3">
+          <div class="text-xs font-mono font-bold text-slate-300 uppercase">Pre-Loaded RAG Topics</div>
+          <div class="space-y-2 text-xs">
+            <button onclick="askPreset('Explain NIST FIPS 203 ML-KEM lattice parameters')" class="w-full text-left p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:border-purple-500 transition">"Explain NIST FIPS 203 ML-KEM lattice parameters"</button>
+            <button onclick="askPreset('How does Shor factorize RSA-2048 with phase estimation?')" class="w-full text-left p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:border-purple-500 transition">"How does Shor factorize RSA-2048 with phase estimation?"</button>
+            <button onclick="askPreset('Compare Grover search speedup against AES-256')" class="w-full text-left p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:border-purple-500 transition">"Compare Grover search speedup against AES-256"</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Code Review Subtab -->
+      <div id="ai-review-subtab" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-[#0D121B] border border-slate-800 rounded-2xl p-5 space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold font-mono text-slate-200">Source Code (Python/JS):</span>
+            <button onclick="executeCodeReview()" class="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition">Run AST Security Review</button>
+          </div>
+          <textarea id="code-review-input" rows="14" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 font-mono text-xs text-cyan-300 focus:outline-none">import rsa
+import os
+
+# Classical RSA key generation vulnerable to Shor's Algorithm
+(pubkey, privkey) = rsa.newkeys(2048)
+api_secret = "sk_live_quantoom_secret_998271"
+
+def execute_cmd(user_param):
+    # Command injection vulnerability
+    os.system("echo " + user_param)
+          </textarea>
+        </div>
+        <div id="code-review-results-box" class="bg-[#0D121B] border border-slate-800 rounded-2xl p-5 space-y-4">
+          <div class="text-xs text-slate-500 text-center py-12">Click "Run AST Security Review" to analyze code.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. CYBER RANGE & SOC -->
+    <div id="view-cyber" class="hidden space-y-6">
+      <div class="flex items-center justify-between bg-slate-900/60 border border-slate-800 p-4 rounded-2xl">
+        <div>
+          <h2 class="text-xl font-bold flex items-center gap-2 text-white">
+            <span class="text-emerald-400">🛡️</span> Ethical Cybersecurity Range & Live SOC
+          </h2>
+          <p class="text-xs text-slate-400">Sandboxed Jeopardy CTFs, constant-time flag verification, and live MITRE ATT&CK SIEM streaming.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- CTF List -->
+        <div class="space-y-3" id="ctf-challenges-list">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Selected CTF Workspace -->
+        <div class="lg:col-span-2 space-y-4">
+          <div id="ctf-active-card" class="bg-[#0D121B] border border-slate-800 rounded-2xl p-6 space-y-4">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Live SIEM Table -->
+          <div class="bg-[#0D121B] border border-slate-800 rounded-2xl p-5 space-y-3">
+            <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2">
+              <span class="font-bold font-mono text-emerald-400 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Live SIEM SOC Telemetry (Suricata/Zeek)
+              </span>
+              <span class="font-mono text-slate-500">BUFFER: STREAMING</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-[11px] font-mono">
+                <thead class="bg-slate-900 text-slate-400 border-b border-slate-800">
+                  <tr>
+                    <th class="p-2">Time</th>
+                    <th class="p-2">Severity</th>
+                    <th class="p-2">Source → Destination</th>
+                    <th class="p-2">MITRE ATT&CK</th>
+                    <th class="p-2">Event Signature</th>
+                  </tr>
+                </thead>
+                <tbody id="siem-tbody" class="divide-y divide-slate-800/60 text-slate-300">
+                  <!-- Streamed by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. CONVERGENCE PROJECTS -->
+    <div id="view-convergence" class="hidden space-y-6">
+      <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-2xl">
+        <h2 class="text-xl font-bold flex items-center gap-2 text-white">
+          <span class="text-amber-400">⚡</span> Convergence Projects & Sponsored Bounties
+        </h2>
+        <p class="text-xs text-slate-400">Cross-disciplinary research initiatives combining Quantum Circuits, Machine Learning Models, and Post-Quantum Security.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="convergence-projects-grid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- 6. LEADERBOARD -->
+    <div id="view-leaderboard" class="hidden space-y-6">
+      <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-2xl">
+        <h2 class="text-xl font-bold flex items-center gap-2 text-white">
+          <span class="text-yellow-400">🏆</span> Global Convergence Leaderboard
+        </h2>
+        <p class="text-xs text-slate-400">Top contributors across Quantum Simulation, AI Copilot Research, and CTF Defense.</p>
+      </div>
+
+      <div class="bg-[#0D121B] border border-slate-800 rounded-2xl overflow-hidden">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-900 text-slate-400 font-mono border-b border-slate-800">
+            <tr>
+              <th class="p-3.5">Rank</th>
+              <th class="p-3.5">Member</th>
+              <th class="p-3.5">Domain Badge</th>
+              <th class="p-3.5 text-center">CTFs Solved</th>
+              <th class="p-3.5 text-center">Circuits Run</th>
+              <th class="p-3.5 text-right">Reputation</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-tbody" class="divide-y divide-slate-800/60">
+            <!-- Rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============================================================ -->
+  <!-- POST-QUANTUM HANDSHAKE MODAL -->
+  <!-- ============================================================ -->
+  <div id="pqc-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="bg-[#0D121B] border border-slate-800 rounded-2xl max-w-lg w-full p-6 space-y-4">
+      <div class="flex justify-between items-center text-emerald-400 font-bold">
+        <span class="text-base flex items-center gap-2">🔑 NIST FIPS 203 (ML-KEM-768) Handshake</span>
+        <button onclick="closePQCModal()" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+      <p class="text-xs text-slate-400 leading-relaxed">
+        Module-Lattice Learning-With-Errors (ML-KEM) generates symmetric session keys immune to polynomial quantum factorization via Shor's algorithm.
+      </p>
+      <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs space-y-2 text-slate-300">
+        <div class="flex justify-between"><span class="text-slate-500">Standard:</span><span class="text-cyan-400 font-bold">NIST-FIPS-203-ML-KEM-768</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">Status:</span><span class="text-emerald-400 font-bold">ESTABLISHED</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">Security Level:</span><span class="text-emerald-400">NIST Level 3 (AES-192 Equivalent)</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">Immune to Shor CRQC:</span><span class="text-cyan-300">TRUE (Lattice Ring LWE)</span></div>
+      </div>
+      <button onclick="closePQCModal()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition">Verified & Close</button>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- NEW POST MODAL -->
+  <!-- ============================================================ -->
+  <div id="new-post-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="bg-[#0D121B] border border-slate-800 rounded-2xl max-w-lg w-full p-6 space-y-4">
+      <div class="flex justify-between items-center text-white font-bold">
+        <span>Create Research Discussion or Question</span>
+        <button onclick="closeNewPostModal()" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+      <form onsubmit="handleCreatePost(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="text-slate-400">Domain / Hub</label>
+          <select id="modal-post-domain" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200 mt-1">
+            <option value="QUANTUM">⚛️ Quantum Hub</option>
+            <option value="AI">🤖 AI Hub</option>
+            <option value="CYBERSECURITY">🛡️ Cyber Range</option>
+            <option value="CONVERGENCE">⚡ Convergence</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-slate-400">Post Title</label>
+          <input id="modal-post-title" type="text" required placeholder="e.g. Benchmarking VQE with Noise Mitigation" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200 mt-1">
+        </div>
+        <div>
+          <label class="text-slate-400">Content</label>
+          <textarea id="modal-post-content" rows="5" required placeholder="Write your research findings, code, or question..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200 mt-1"></textarea>
+        </div>
+        <div class="flex justify-end space-x-2 pt-2">
+          <button type="button" onclick="closeNewPostModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold">Publish Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SINGLE-FILE UNIFIED JAVASCRIPT RUNTIME ENGINE -->
+  <!-- ============================================================ -->
+  <script>
+    // -------------------------------------------------------------
+    // 1. COMPLEX NUMBERS & QUANTUM MATRIX ENGINE
+    // -------------------------------------------------------------
+    class Complex {
+      constructor(real, imag) { this.real = real; this.imag = imag; }
+      static zero() { return new Complex(0, 0); }
+      static fromReal(r) { return new Complex(r, 0); }
+      add(c) { return new Complex(this.real + c.real, this.imag + c.imag); }
+      mul(c) { return new Complex(this.real * c.real - this.imag * c.imag, this.real * c.imag + this.imag * c.real); }
+      scale(s) { return new Complex(this.real * s, this.imag * s); }
+      conjugate() { return new Complex(this.real, -this.imag); }
+      normSquared() { return this.real * this.real + this.imag * this.imag; }
+    }
+
+    class QuantumSimulator {
+      static simulate(numQubits, gates, shots = 1024) {
+        const stateDim = 1 << numQubits;
+        let amps = new Array(stateDim).fill(null).map(() => Complex.zero());
+        amps[0] = Complex.fromReal(1.0); // Ground state |00...0>
+
+        const applySingle = (target, u00, u01, u10, u11) => {
+          const step = 1 << target;
+          for (let i = 0; i < stateDim; i += 2 * step) {
+            for (let j = 0; j < step; j++) {
+              const idx0 = i + j, idx1 = idx0 + step;
+              const a0 = amps[idx0], a1 = amps[idx1];
+              amps[idx0] = u00.mul(a0).add(u01.mul(a1));
+              amps[idx1] = u10.mul(a0).add(u11.mul(a1));
+            }
+          }
+        };
+
+        for (const g of gates) {
+          const gate = g.gate.toUpperCase();
+          const t = g.targets;
+          if (gate === 'H') {
+            const val = 1 / Math.SQRT2;
+            applySingle(t[0], Complex.fromReal(val), Complex.fromReal(val), Complex.fromReal(val), Complex.fromReal(-val));
+          } else if (gate === 'X') {
+            applySingle(t[0], Complex.zero(), Complex.fromReal(1), Complex.fromReal(1), Complex.zero());
+          } else if (gate === 'Y') {
+            applySingle(t[0], Complex.zero(), new Complex(0, -1), new Complex(0, 1), Complex.zero());
+          } else if (gate === 'Z') {
+            applySingle(t[0], Complex.fromReal(1), Complex.zero(), Complex.zero(), Complex.fromReal(-1));
+          } else if (gate === 'S') {
+            applySingle(t[0], Complex.fromReal(1), Complex.zero(), Complex.zero(), new Complex(0, 1));
+          } else if (gate === 'T') {
+            applySingle(t[0], Complex.fromReal(1), Complex.zero(), Complex.zero(), new Complex(Math.cos(Math.PI/4), Math.sin(Math.PI/4)));
+          } else if (gate === 'RX') {
+            const theta = (g.params && g.params[0]) || Math.PI / 2;
+            applySingle(t[0], Complex.fromReal(Math.cos(theta/2)), new Complex(0, -Math.sin(theta/2)), new Complex(0, -Math.sin(theta/2)), Complex.fromReal(Math.cos(theta/2)));
+          } else if (gate === 'RY') {
+            const theta = (g.params && g.params[0]) || Math.PI / 2;
+            applySingle(t[0], Complex.fromReal(Math.cos(theta/2)), Complex.fromReal(-Math.sin(theta/2)), Complex.fromReal(Math.sin(theta/2)), Complex.fromReal(Math.cos(theta/2)));
+          } else if (gate === 'RZ') {
+            const theta = (g.params && g.params[0]) || Math.PI / 2;
+            applySingle(t[0], new Complex(Math.cos(-theta/2), Math.sin(-theta/2)), Complex.zero(), Complex.zero(), new Complex(Math.cos(theta/2), Math.sin(theta/2)));
+          } else if (gate === 'CNOT' || gate === 'CX') {
+            const ctrl = t[0], tgt = t[1];
+            for (let i = 0; i < stateDim; i++) {
+              if ((i & (1 << ctrl)) !== 0 && (i & (1 << tgt)) === 0) {
+                const flipped = i | (1 << tgt);
+                const temp = amps[i]; amps[i] = amps[flipped]; amps[flipped] = temp;
+              }
+            }
+          } else if (gate === 'CZ') {
+            const ctrl = t[0], tgt = t[1];
+            for (let i = 0; i < stateDim; i++) {
+              if ((i & (1 << ctrl)) !== 0 && (i & (1 << tgt)) !== 0) {
+                amps[i] = amps[i].scale(-1);
+              }
+            }
+          } else if (gate === 'SWAP') {
+            const qA = t[0], qB = t[1];
+            for (let i = 0; i < stateDim; i++) {
+              const bitA = (i & (1 << qA)) !== 0, bitB = (i & (1 << qB)) !== 0;
+              if (bitA && !bitB) {
+                const swapped = (i ^ (1 << qA)) | (1 << qB);
+                const temp = amps[i]; amps[i] = amps[swapped]; amps[swapped] = temp;
+              }
+            }
+          }
+        }
+
+        // Statevector entries
+        const stateVector = [];
+        for (let i = 0; i < stateDim; i++) {
+          const p = amps[i].normSquared();
+          stateVector.push({
+            basis: `|${i.toString(2).padStart(numQubits, '0')}⟩`,
+            real: Number(amps[i].real.toFixed(4)),
+            imag: Number(amps[i].imag.toFixed(4)),
+            prob: Number(p.toFixed(4)),
+          });
+        }
+
+        // Bloch coordinates via partial trace
+        const blochAngles = [];
+        for (let q = 0; q < numQubits; q++) {
+          let rho00 = 0, rho11 = 0, rho01 = Complex.zero();
+          const mask = 1 << q;
+          for (let i = 0; i < stateDim; i++) {
+            if ((i & mask) === 0) {
+              rho00 += amps[i].normSquared();
+              rho11 += amps[i | mask].normSquared();
+              rho01 = rho01.add(amps[i].mul(amps[i | mask].conjugate()));
+            }
+          }
+          const x = 2 * rho01.real, y = 2 * rho01.imag, z = rho00 - rho11;
+          const r = Math.min(1.0, Math.sqrt(x*x + y*y + z*z));
+          const theta = r > 1e-6 ? Math.acos(Math.max(-1, Math.min(1, z / r))) : 0;
+          let phi = Math.atan2(y, x); if (phi < 0) phi += 2 * Math.PI;
+          blochAngles.push({ qubit: q, theta, phi, x: Number(x.toFixed(3)), y: Number(y.toFixed(3)), z: Number(z.toFixed(3)) });
+        }
+
+        // Monte carlo measurements
+        const measurements = {};
+        for (let s = 0; s < shots; s++) {
+          const rand = Math.random();
+          let acc = 0, choice = stateDim - 1;
+          for (let i = 0; i < stateDim; i++) {
+            acc += amps[i].normSquared();
+            if (rand <= acc) { choice = i; break; }
+          }
+          const bitstring = choice.toString(2).padStart(numQubits, '0');
+          measurements[bitstring] = (measurements[bitstring] || 0) + 1;
+        }
+
+        return { numQubits, stateVector, blochAngles, measurements };
+      }
+    }
+
+    // -------------------------------------------------------------
+    // 2. STATE & DATA INITIALIZATION
+    // -------------------------------------------------------------
+    let currentQubits = 2;
+    let currentGates = [
+      { gate: 'H', targets: [0] },
+      { gate: 'CNOT', targets: [0, 1] }
+    ];
+
+    const algorithms = {
+      bell: [ { gate: 'H', targets: [0] }, { gate: 'CNOT', targets: [0, 1] } ],
+      grover: [
+        { gate: 'H', targets: [0] }, { gate: 'H', targets: [1] },
+        { gate: 'CZ', targets: [0, 1] },
+        { gate: 'H', targets: [0] }, { gate: 'H', targets: [1] },
+        { gate: 'X', targets: [0] }, { gate: 'X', targets: [1] },
+        { gate: 'CZ', targets: [0, 1] },
+        { gate: 'X', targets: [0] }, { gate: 'X', targets: [1] },
+        { gate: 'H', targets: [0] }, { gate: 'H', targets: [1] }
+      ],
+      teleport: [
+        { gate: 'RY', targets: [0], params: [Math.PI/3] },
+        { gate: 'H', targets: [1] }, { gate: 'CNOT', targets: [1, 2] },
+        { gate: 'CNOT', targets: [0, 1] }, { gate: 'H', targets: [0] },
+        { gate: 'CNOT', targets: [1, 2] }, { gate: 'CZ', targets: [0, 2] }
+      ],
+      qft: [
+        { gate: 'H', targets: [0] }, { gate: 'RZ', targets: [0], params: [Math.PI/2] },
+        { gate: 'CNOT', targets: [1, 0] }, { gate: 'H', targets: [1] },
+        { gate: 'RZ', targets: [1], params: [Math.PI/4] }, { gate: 'CNOT', targets: [2, 1] },
+        { gate: 'H', targets: [2] }, { gate: 'SWAP', targets: [0, 2] }
+      ],
+      kyber: [
+        { gate: 'H', targets: [0] }, { gate: 'RY', targets: [1], params: [Math.PI/4] },
+        { gate: 'RZ', targets: [2], params: [Math.PI/6] }, { gate: 'CNOT', targets: [0, 1] },
+        { gate: 'CZ', targets: [1, 2] }
+      ]
+    };
+
+    let postsData = [
+      {
+        id: 'p1',
+        title: 'How to simulate 100+ qubits with Tensor Network contraction?',
+        content: 'Standard state-vector simulation requires 2^n complex amplitudes, rendering classical computers memory-bound beyond 30 qubits. Using Matrix Product States (MPS) and PEPS tensor networks with bounded bond dimensions chi, we can simulate low-entanglement circuits of 100+ qubits.',
+        author: 'dr_elena_vance',
+        domain: 'QUANTUM',
+        badge: 'Quantum Supremacist',
+        upvotes: 52,
+        commentsCount: 3,
+        date: '3h ago'
+      },
+      {
+        id: 'p2',
+        title: 'Defending Against Harvest-Now-Decrypt-Later (HNDL): Post-Quantum Migration Guide',
+        content: 'With NIST publishing FIPS 203 (ML-KEM) and FIPS 204 (ML-DSA), every security architect must inventory classical RSA/ECDH endpoints. Our SOC benchmarks show a hybrid X25519 + ML-KEM-768 envelope has only ~4.8% latency overhead while providing quantum immunity.',
+        author: 'aaliyah_soc',
+        domain: 'CYBERSECURITY',
+        badge: 'Lattice Guardian',
+        upvotes: 84,
+        commentsCount: 7,
+        date: '6h ago'
+      },
+      {
+        id: 'p3',
+        title: 'Quantum Kernel Support Vector Machines (QSVM) for Detecting Stealth Botnets',
+        content: 'We trained a QSVM using PennyLane with a 6-qubit ZZFeatureMap to classify encrypted C2 traffic. The quantum feature map gave a 14% improvement in F1-score over classical RBF SVMs.',
+        author: 'marcus_ml',
+        domain: 'CONVERGENCE',
+        badge: 'Convergence Pioneer',
+        upvotes: 61,
+        commentsCount: 2,
+        date: '12h ago'
+      }
+    ];
+
+    const ctfChallenges = [
+      {
+        id: 'pqc-01',
+        title: 'Lattice Guardians: Defeating Weak Moduli',
+        category: 'POST-QUANTUM CRYPTO',
+        difficulty: 'MEDIUM',
+        points: 250,
+        flag: 'ROOT{fips_203_kyber_defeats_shor_factoring_9981}',
+        scenario: 'An enterprise banking subsystem exposes an unhardened 512-bit RSA modulus. Calculate prime factors or evaluate the ML-KEM lattice polynomial to prove vulnerability and recover the flag.',
+        hint: 'Use Fermat factorization or small-qubit Shor phase estimation.'
+      },
+      {
+        id: 'qkd-02',
+        title: 'Quantum Key Distribution: The Eve Anomaly',
+        category: 'FORENSICS',
+        difficulty: 'EASY',
+        points: 150,
+        flag: 'ROOT{bb84_qber_above_11pct_intercepted_4402}',
+        scenario: 'Analyze a photon polarization transmission log between Alice and Bob running BB84. Calculate whether the Quantum Bit Error Rate (QBER) exceeds the 11% Shor-Preskill threshold.',
+        hint: 'Random basis intercept-resend introduces a 25% error rate on matching bases.'
+      },
+      {
+        id: 'ai-03',
+        title: 'AI Red Teaming: The Hallucinated Ansatz',
+        category: 'AI RED TEAMING',
+        difficulty: 'HARD',
+        points: 350,
+        flag: 'ROOT{prompt_jailbreak_quantum_ansatz_bypass_7719}',
+        scenario: 'An automated AI patent agent verifies quantum circuits. Construct an adversarial prompt disguised as an ansatz equation to extract the hidden root verification flag.',
+        hint: 'Encode instructions inside Unicode blackboard bold mathematical notation.'
+      }
+    ];
+
+    let selectedCtf = ctfChallenges[0];
+
+    const siemLogTemplates = [
+      { sev: 'CRITICAL', proto: 'TLSv1.3', mitre: 'T1588.006', src: '198.51.100.44', dst: '10.0.4.15', desc: 'Bulk exfiltration of encrypted traffic without ML-KEM wrapper. Suspected Harvest-Now-Decrypt-Later activity.' },
+      { sev: 'HIGH', proto: 'HTTPS', mitre: 'T1059.006', src: '203.0.113.88', dst: '10.0.1.20', desc: 'Adversarial prompt injection attempt detected against Quantoom AI Research Agent. Sanitized by guardrail.' },
+      { sev: 'MEDIUM', proto: 'gRPC', mitre: 'T1110.001', src: '192.0.2.190', dst: '10.0.8.2', desc: 'Repeated unauthorized attempts to access IBM Quantum API token via brute-force identifier scan.' },
+      { sev: 'LOW', proto: 'QKD-BB84', mitre: 'T1040', src: '10.200.1.5', dst: '10.200.1.6', desc: 'Transient photon polarization decoherence detected on fiber trunk Alpha-9. QBER safe at 3.12%.' }
+    ];
+
+    // -------------------------------------------------------------
+    // 3. UI RENDERING & TAB SWITCHING
+    // -------------------------------------------------------------
+    function switchTab(tabId) {
+      const tabs = ['community', 'quantum', 'ai', 'cyber', 'convergence', 'leaderboard'];
+      tabs.forEach(t => {
+        document.getElementById(`view-${t}`).classList.add('hidden');
+        const btn = document.getElementById(`tab-btn-${t}`);
+        if (btn) {
+          btn.className = 'px-3 py-1.5 rounded-full font-medium text-slate-400 hover:text-slate-200';
+        }
+      });
+      document.getElementById(`view-${tabId}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+      if (activeBtn) {
+        activeBtn.className = 'px-3 py-1.5 rounded-full font-medium text-cyan-400 bg-slate-800 border border-slate-700 font-bold';
+      }
+      if (tabId === 'quantum') renderCircuit();
+    }
+
+    function renderFeed(filter = 'ALL') {
+      const container = document.getElementById('feed-container');
+      const filtered = filter === 'ALL' ? postsData : postsData.filter(p => p.domain === filter);
+      container.innerHTML = filtered.map(p => `
+        <div class="bg-[#0D121B] border border-slate-800 hover:border-slate-700 rounded-2xl p-5 space-y-3 transition">
+          <div class="flex items-center justify-between text-xs">
+            <div class="flex items-center space-x-2">
+              <span class="font-bold text-slate-200">@${p.author}</span>
+              <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-900 text-cyan-400 border border-slate-800">${p.badge}</span>
+              <span class="text-slate-500 font-mono">• ${p.date}</span>
+            </div>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-900 text-cyan-400 border border-slate-800">/${p.domain.toLowerCase()}</span>
+          </div>
+          <h3 class="text-base font-bold text-white">${p.title}</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">${p.content}</p>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 font-mono">
+            <button onclick="upvotePost('${p.id}')" class="flex items-center space-x-1.5 px-3 py-1 rounded bg-slate-900 border border-slate-800 hover:text-cyan-400">
+              <span>▲</span> <span>${p.upvotes}</span>
+            </button>
+            <span>${p.commentsCount} comments</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterFeed(domain) {
+      renderFeed(domain);
+    }
+
+    function upvotePost(id) {
+      const post = postsData.find(p => p.id === id);
+      if (post) { post.upvotes += 1; renderFeed(); }
+    }
+
+    function openNewPostModal() { document.getElementById('new-post-modal').classList.remove('hidden'); }
+    function closeNewPostModal() { document.getElementById('new-post-modal').classList.add('hidden'); }
+    function handleCreatePost(e) {
+      e.preventDefault();
+      const domain = document.getElementById('modal-post-domain').value;
+      const title = document.getElementById('modal-post-title').value;
+      const content = document.getElementById('modal-post-content').value;
+      postsData.unshift({
+        id: 'p' + Date.now(),
+        title,
+        content,
+        domain,
+        author: 'dr_elena',
+        badge: 'Quantum Supremacist',
+        upvotes: 1,
+        commentsCount: 0,
+        date: 'Just now'
+      });
+      closeNewPostModal();
+      renderFeed();
+    }
+
+    // -------------------------------------------------------------
+    // 4. QUANTUM CIRCUIT WORKBENCH
+    // -------------------------------------------------------------
+    function renderCircuit() {
+      const container = document.getElementById('qubit-wires-container');
+      let html = '';
+      for (let q = 0; q < currentQubits; q++) {
+        html += `
+          <div class="flex items-center space-x-3">
+            <div class="w-14 h-9 rounded-lg bg-slate-900 border border-slate-800 text-cyan-300 font-mono text-xs font-bold flex items-center justify-center">
+              |q${q}⟩
+            </div>
+            <div class="flex-1 h-9 relative flex items-center bg-slate-950 border border-slate-900 rounded-lg px-2">
+              <div class="absolute inset-x-0 top-1/2 h-[2px] bg-slate-800 -translate-y-1/2"></div>
+              <div class="relative z-10 flex items-center space-x-2">
+                ${currentGates.map((g, idx) => {
+                  if (!g.targets.includes(q)) return '<div class="w-8 h-7"></div>';
+                  const isCtrl = g.targets.length > 1 && g.targets[0] === q;
+                  const isTgt = g.targets.length > 1 && g.targets[1] === q;
+                  return `
+                    <div onclick="removeGate(${idx})" title="Click to remove" class="w-8 h-7 rounded flex items-center justify-center font-mono text-xs font-bold cursor-pointer shadow ${
+                      isCtrl ? 'bg-cyan-500 text-black' : isTgt ? 'bg-purple-600 text-white' : 'bg-slate-800 text-cyan-300 border border-slate-700 hover:bg-rose-900'
+                    }">
+                      ${isCtrl ? '●' : isTgt ? '⊕' : g.gate}
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      container.innerHTML = html;
+      document.getElementById('circuit-meta-text').innerText = `${currentGates.length} Gates placed`;
+      runSimulation();
+    }
+
+    function addGate(gateName) {
+      const targetWire = Number(document.getElementById('target-wire-select').value);
+      if (['CNOT', 'CZ', 'SWAP'].includes(gateName)) {
+        if (targetWire >= currentQubits || targetWire === 0) {
+          alert('Select a distinct target wire in the dropdown.');
+          return;
+        }
+        currentGates.push({ gate: gateName, targets: [0, targetWire] });
+      } else {
+        currentGates.push({ gate: gateName, targets: [0] });
+      }
+      renderCircuit();
+    }
+
+    function removeGate(idx) {
+      currentGates.splice(idx, 1);
+      renderCircuit();
+    }
+
+    function resetCircuit() {
+      currentGates = [];
+      renderCircuit();
+    }
+
+    function changeQubits(val) {
+      currentQubits = Number(val);
+      currentGates = currentGates.filter(g => g.targets.every(t => t < currentQubits));
+      renderCircuit();
+    }
+
+    function loadAlgo(name) {
+      const algo = algorithms[name];
+      if (algo) {
+        if (name === 'teleport' || name === 'qft' || name === 'kyber') {
+          currentQubits = 3;
+          document.getElementById('quantum-qubit-select').value = '3';
+        } else {
+          currentQubits = 2;
+          document.getElementById('quantum-qubit-select').value = '2';
+        }
+        currentGates = JSON.parse(JSON.stringify(algo));
+        renderCircuit();
+      }
+    }
+
+    function runSimulation() {
+      const res = QuantumSimulator.simulate(currentQubits, currentGates, 1024);
+      const box = document.getElementById('sim-results-box');
+      box.innerHTML = `
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3 text-xs">
+          <span class="font-bold text-slate-200">Simulation Analytics (${currentQubits} Qubits, 1024 Shots)</span>
+          <span class="font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">EXEC: EXACT</span>
+        </div>
+
+        <!-- Bloch Vectors -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          ${res.blochAngles.map(b => `
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 flex flex-col items-center">
+              <span class="text-[11px] font-mono font-bold text-cyan-400 mb-1">Qubit |q${b.qubit}⟩ Bloch Vector</span>
+              <div class="relative w-24 h-24 rounded-full border border-cyan-500/40 flex items-center justify-center bg-slate-950">
+                <div class="absolute inset-x-0 top-1/2 h-px bg-slate-800"></div>
+                <div class="absolute inset-y-0 left-1/2 w-px bg-slate-800"></div>
+                <div class="absolute w-2 h-2 rounded-full bg-cyan-400 shadow-glow-blue" style="transform: translate(${b.x * 38}px, ${-b.z * 38}px)"></div>
+              </div>
+              <div class="mt-2 text-[10px] font-mono text-slate-400 text-center">
+                θ=${b.theta.toFixed(2)} rad • φ=${b.phi.toFixed(2)} rad<br>
+                ⟨X⟩=${b.x} ⟨Y⟩=${b.y} ⟨Z⟩=${b.z}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- Statevector Table -->
+        <div class="overflow-x-auto pt-2">
+          <table class="w-full text-left text-xs font-mono">
+            <thead class="bg-slate-900 text-slate-400 border-b border-slate-800">
+              <tr>
+                <th class="p-2">Basis State</th>
+                <th class="p-2">Real</th>
+                <th class="p-2">Imag</th>
+                <th class="p-2">Probability</th>
+                <th class="p-2">Distribution</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60">
+              ${res.stateVector.map(s => `
+                <tr>
+                  <td class="p-2 font-bold text-cyan-300">${s.basis}</td>
+                  <td class="p-2 text-slate-400">${s.real}</td>
+                  <td class="p-2 text-slate-400">${s.imag}</td>
+                  <td class="p-2 font-bold text-emerald-400">${(s.prob * 100).toFixed(1)}%</td>
+                  <td class="p-2 w-40">
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div class="bg-gradient-to-r from-cyan-500 to-emerald-400 h-full" style="width: ${s.prob * 100}%"></div>
+                    </div>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    // -------------------------------------------------------------
+    // 5. AI COPILOT & CODE REVIEWER
+    // -------------------------------------------------------------
+    let aiChatHistory = [
+      {
+        sender: 'ASSISTANT',
+        text: '👋 Welcome to Quantoom Root AI Copilot. I am indexed over post-quantum standards (NIST FIPS 203/204), quantum algorithms (Shor, Grover, VQE), and MITRE defensive techniques. How can I assist?'
+      }
+    ];
+
+    function renderAIChat() {
+      const c = document.getElementById('ai-messages-container');
+      c.innerHTML = aiChatHistory.map(m => `
+        <div class="flex ${m.sender === 'USER' ? 'justify-end' : 'justify-start'}">
+          <div class="max-w-xl p-3 rounded-2xl ${m.sender === 'USER' ? 'bg-purple-700 text-white rounded-tr-none' : 'bg-slate-900 border border-slate-800 text-slate-200 rounded-tl-none'}">
+            <div class="whitespace-pre-wrap">${m.text}</div>
+          </div>
+        </div>
+      `).join('');
+      c.scrollTop = c.scrollHeight;
+    }
+
+    function handleAISubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('ai-input');
+      const val = input.value.trim();
+      if (!val) return;
+      input.value = '';
+      aiChatHistory.push({ sender: 'USER', text: val });
+      renderAIChat();
+
+      setTimeout(() => {
+        let reply = '';
+        const q = val.toLowerCase();
+        if (q.includes('shor') || q.includes('factor')) {
+          reply = "⚛️ **Shor's Algorithm Analysis**:\nShor's quantum algorithm solves prime factorization and discrete logarithms in polynomial time O((log N)^3) on a Cryptographically Relevant Quantum Computer (CRQC), breaking classical RSA and ECC. To protect sensitive data, migrate to NIST FIPS 203 ML-KEM.";
+        } else if (q.includes('kyber') || q.includes('fips') || q.includes('pqc')) {
+          reply = "🔒 **NIST FIPS 203 ML-KEM (Kyber-768)**:\nStandardized in August 2024, ML-KEM is based on Module Learning-With-Errors (M-LWE). It provides post-quantum secure key encapsulation with ~1KB public keys, resilient against quantum attacks.";
+        } else if (q.includes('grover')) {
+          reply = "⚡ **Grover's Algorithm Speedup**:\nGrover's algorithm provides quadratic speedup O(√N) for unstructured search. To defend symmetric encryption against Grover attacks, upgrade AES-128 to AES-256.";
+        } else {
+          reply = `🔍 **Quantoom Root Synthesis** on "${val}":\nQuantum state spaces can be simulated up to 16 qubits locally. For defense, deploy hybrid classical-post-quantum cipher suites and monitor SIEM telemetry mapped to MITRE T1588.`;
+        }
+        aiChatHistory.push({ sender: 'ASSISTANT', text: reply });
+        renderAIChat();
+      }, 500);
+    }
+
+    function askPreset(txt) {
+      document.getElementById('ai-input').value = txt;
+      handleAISubmit({ preventDefault: () => {} });
+    }
+
+    function switchAISubTab(tab) {
+      if (tab === 'chat') {
+        document.getElementById('ai-chat-subtab').classList.remove('hidden');
+        document.getElementById('ai-review-subtab').classList.add('hidden');
+        document.getElementById('ai-sub-chat-btn').className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-purple-900 text-purple-200 border border-purple-700';
+        document.getElementById('ai-sub-review-btn').className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white';
+      } else {
+        document.getElementById('ai-chat-subtab').classList.add('hidden');
+        document.getElementById('ai-review-subtab').classList.remove('hidden');
+        document.getElementById('ai-sub-review-btn').className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-purple-900 text-purple-200 border border-purple-700';
+        document.getElementById('ai-sub-chat-btn').className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white';
+      }
+    }
+
+    function executeCodeReview() {
+      const code = document.getElementById('code-review-input').value;
+      const findings = [];
+      if (/rsa\.newkeys|2048|1024/i.test(code)) {
+        findings.push({
+          line: 5,
+          title: "Shor-Vulnerable Classical RSA Primitives",
+          cwe: "CWE-327",
+          rec: "Migrate to NIST FIPS 203 (ML-KEM-768) for quantum-resistant key encapsulation."
+        });
+      }
+      if (/api_secret|sk_live/i.test(code)) {
+        findings.push({
+          line: 6,
+          title: "Hardcoded Secret Token in Source Code",
+          cwe: "CWE-798",
+          rec: "Store secrets in KMS or environment variables."
+        });
+      }
+      if (/os\.system|exec/i.test(code)) {
+        findings.push({
+          line: 10,
+          title: "Command Injection via Unsanitized Shell Call",
+          cwe: "CWE-78",
+          rec: "Use parameter arrays without invoking shell."
+        });
+      }
+
+      const score = Math.max(0, 100 - findings.length * 25);
+      const box = document.getElementById('code-review-results-box');
+      box.innerHTML = `
+        <div class="flex justify-between items-center p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs">
+          <div>
+            <div class="text-slate-400">Security Score</div>
+            <div class="text-2xl font-mono font-bold text-cyan-400">${score}/100</div>
+          </div>
+          <span class="px-2 py-1 rounded font-mono font-bold ${score > 80 ? 'bg-emerald-950 text-emerald-400' : 'bg-rose-950 text-rose-400 border border-rose-800'}">
+            ${score > 80 ? 'PASS' : 'VULNERABILITIES DETECTED'}
+          </span>
+        </div>
+        <div class="space-y-2">
+          ${findings.map(f => `
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs space-y-1">
+              <div class="font-bold text-rose-400">Line ${f.line}: ${f.title} (${f.cwe})</div>
+              <div class="text-emerald-400 font-mono text-[11px]">Fix: ${f.rec}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    // -------------------------------------------------------------
+    // 6. CYBER RANGE & SIEM STREAMER
+    // -------------------------------------------------------------
+    function renderCTF() {
+      const list = document.getElementById('ctf-challenges-list');
+      list.innerHTML = ctfChallenges.map(c => `
+        <div onclick="selectCTF('${c.id}')" class="p-3 rounded-xl border cursor-pointer transition ${selectedCtf.id === c.id ? 'bg-emerald-950/40 border-emerald-500' : 'bg-[#0D121B] border-slate-800'}">
+          <div class="flex justify-between items-center text-xs font-bold text-slate-200 mb-1">
+            <span>${c.title}</span>
+            <span class="text-emerald-400 font-mono">+${c.points} PTS</span>
+          </div>
+          <div class="text-[10px] text-slate-400 font-mono">${c.category} • ${c.difficulty}</div>
+        </div>
+      `).join('');
+
+      const active = document.getElementById('ctf-active-card');
+      active.innerHTML = `
+        <div class="flex justify-between items-start border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white">${selectedCtf.title}</h3>
+            <span class="text-xs text-slate-400 font-mono">${selectedCtf.category} • ${selectedCtf.difficulty}</span>
+          </div>
+          <div class="text-xl font-mono font-bold text-emerald-400">${selectedCtf.points} PTS</div>
+        </div>
+        <div class="text-xs text-slate-300 leading-relaxed bg-slate-950 p-3 rounded-xl border border-slate-800">
+          ${selectedCtf.scenario}
+        </div>
+        <div class="text-xs text-amber-300 font-mono bg-amber-950/20 p-2.5 rounded-lg border border-amber-900/40">
+          💡 Hint: ${selectedCtf.hint}
+        </div>
+        <form onsubmit="handleCTFSubmit(event)" class="space-y-2 pt-2">
+          <label class="text-xs font-mono font-bold text-slate-300">Submit Target Flag:</label>
+          <div class="flex gap-2">
+            <input id="ctf-flag-input" type="text" placeholder="ROOT{...}" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-mono text-emerald-300 focus:outline-none focus:border-emerald-500">
+            <button type="submit" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs font-mono">Verify</button>
+          </div>
+          <div id="ctf-feedback" class="text-xs font-mono hidden p-2 rounded-lg"></div>
+        </form>
+      `;
+    }
+
+    function selectCTF(id) {
+      selectedCtf = ctfChallenges.find(c => c.id === id);
+      renderCTF();
+    }
+
+    function handleCTFSubmit(e) {
+      e.preventDefault();
+      const val = document.getElementById('ctf-flag-input').value.trim();
+      const feedback = document.getElementById('ctf-feedback');
+      feedback.classList.remove('hidden');
+      if (val === selectedCtf.flag) {
+        feedback.className = 'text-xs font-mono p-2 rounded-lg bg-emerald-950 text-emerald-300 border border-emerald-800';
+        feedback.innerText = `🎉 CORRECT FLAG! Awarded +${selectedCtf.points} reputation points.`;
+      } else {
+        feedback.className = 'text-xs font-mono p-2 rounded-lg bg-rose-950 text-rose-300 border border-rose-800';
+        feedback.innerText = `❌ Incorrect flag token. Try evaluating the lattice coefficients.`;
+      }
+    }
+
+    function streamSIEM() {
+      const tbody = document.getElementById('siem-tbody');
+      const item = siemLogTemplates[Math.floor(Math.random() * siemLogTemplates.length)];
+      const row = document.createElement('tr');
+      row.className = 'hover:bg-slate-900/40';
+      row.innerHTML = `
+        <td class="p-2 text-slate-400">${new Date().toLocaleTimeString()}</td>
+        <td class="p-2 font-bold ${item.sev === 'CRITICAL' ? 'text-rose-400' : item.sev === 'HIGH' ? 'text-amber-400' : 'text-slate-300'}">${item.sev}</td>
+        <td class="p-2">${item.src} → ${item.dst}</td>
+        <td class="p-2 text-purple-400">${item.mitre}</td>
+        <td class="p-2 text-slate-200">${item.desc}</td>
+      `;
+      tbody.prepend(row);
+      if (tbody.children.length > 6) tbody.removeChild(tbody.lastChild);
+    }
+
+    // -------------------------------------------------------------
+    // 7. CONVERGENCE & LEADERBOARD RENDERING
+    // -------------------------------------------------------------
+    function renderConvergence() {
+      const grid = document.getElementById('convergence-projects-grid');
+      const projects = [
+        { title: 'Post-Quantum AI SIEM Agent', bounty: '$15,000', domains: ['QUANTUM', 'AI', 'CYBER'], desc: 'Building an autonomous incident response agent trained to detect classical-to-PQC downgrade attacks and real-time cryptographic harvesting in enterprise networks.', team: 4, tasks: '9/12 Tasks' },
+        { title: 'Fault-Tolerant QAOA Portfolio Optimizer', bounty: '$8,500', domains: ['QUANTUM', 'AI'], desc: 'Hybrid quantum optimization platform using reinforcement learning to dynamically tune QAOA gamma and beta angle schedules.', team: 3, tasks: '5/8 Tasks' }
+      ];
+      grid.innerHTML = projects.map(p => `
+        <div class="bg-[#0D121B] border border-slate-800 rounded-2xl p-5 space-y-3">
+          <div class="flex justify-between items-start">
+            <h3 class="text-sm font-bold text-white">${p.title}</h3>
+            <span class="text-xs font-mono font-bold text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">${p.bounty}</span>
+          </div>
+          <p class="text-xs text-slate-300">${p.desc}</p>
+          <div class="pt-2 border-t border-slate-800 flex justify-between items-center text-xs font-mono text-slate-400">
+            <span>${p.team} Contributors</span>
+            <span class="text-cyan-400">${p.tasks}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderLeaderboard() {
+      const tbody = document.getElementById('leaderboard-tbody');
+      const rankings = [
+        { rank: 1, name: 'Aaliyah Patel', username: 'aaliyah_soc', badge: 'Lattice Guardian', ctfs: 18, circuits: 45, rep: 3120 },
+        { rank: 2, name: 'Dr. Elena Vance', username: 'dr_elena_vance', badge: 'Quantum Supremacist', ctfs: 12, circuits: 129, rep: 2840 },
+        { rank: 3, name: 'Marcus Chen', username: 'marcus_ml', badge: 'Convergence Pioneer', ctfs: 9, circuits: 34, rep: 1750 },
+        { rank: 4, name: 'Hiro Tanaka', username: 'circuit_ninja', badge: 'Qubit Whisperer', ctfs: 15, circuits: 88, rep: 1420 },
+        { rank: 5, name: 'Nexus SOC', username: 'nexus_cyber', badge: 'Sentinel Bot', ctfs: 7, circuits: 19, rep: 980 }
+      ];
+      tbody.innerHTML = rankings.map(r => `
+        <tr class="hover:bg-slate-900/40">
+          <td class="p-3.5 font-mono font-bold ${r.rank === 1 ? 'text-yellow-400' : 'text-slate-400'}">#${r.rank}</td>
+          <td class="p-3.5">
+            <div class="font-bold text-slate-200">${r.name}</div>
+            <div class="text-[10px] text-slate-500 font-mono">@${r.username}</div>
+          </td>
+          <td class="p-3.5 font-mono text-cyan-400 text-xs">${r.badge}</td>
+          <td class="p-3.5 text-center font-mono text-emerald-400 font-bold">${r.ctfs}</td>
+          <td class="p-3.5 text-center font-mono text-cyan-400 font-bold">${r.circuits}</td>
+          <td class="p-3.5 text-right font-mono font-bold text-white text-sm">${r.rep} pts</td>
+        </tr>
+      `).join('');
+    }
+
+    function openPQCModal() { document.getElementById('pqc-modal').classList.remove('hidden'); }
+    function closePQCModal() { document.getElementById('pqc-modal').classList.add('hidden'); }
+
+    // Init on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderFeed();
+      renderCircuit();
+      renderAIChat();
+      renderCTF();
+      renderConvergence();
+      renderLeaderboard();
+      // Populate 3 initial SIEM rows
+      for (let i = 0; i < 4; i++) streamSIEM();
+      setInterval(streamSIEM, 4000);
+    });
+  </script>
+</body>
+</html>
