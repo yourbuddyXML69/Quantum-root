@@ -1,0 +1,87 @@
+version: '3.9'
+
+services:
+  # -------------------------------------------------------------
+  # PERSISTENCE & CACHE INFRASTRUCTURE
+  # -------------------------------------------------------------
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: quantoom-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-quantoom}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-quantum_ai_cyber_secure_pass_2026}
+      POSTGRES_DB: ${POSTGRES_DB:-quantoom_root_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-quantoom} -d ${POSTGRES_DB:-quantoom_root_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - quantoom-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: quantoom-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-quantoom_redis_pqc_pass}
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - quantoom-net
+
+  # -------------------------------------------------------------
+  # BACKEND MICROSERVICES
+  # -------------------------------------------------------------
+  server:
+    build:
+      context: ./server
+      dockerfile: ../Dockerfile.server
+    container_name: quantoom-server
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-quantoom}:${POSTGRES_PASSWORD:-quantum_ai_cyber_secure_pass_2026}@postgres:5432/${POSTGRES_DB:-quantoom_root_db}?schema=public
+      REDIS_URL: redis://:${REDIS_PASSWORD:-quantoom_redis_pqc_pass}@redis:6379
+      JWT_SECRET: ${JWT_SECRET:-quantoom-root-super-secret-key-2026-pqc}
+      PQC_STANDARD: NIST-FIPS-203-ML-KEM
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - quantoom-net
+
+  # -------------------------------------------------------------
+  # FRONTEND WEB APPLICATION
+  # -------------------------------------------------------------
+  client:
+    build:
+      context: ./client
+      dockerfile: ../Dockerfile.client
+    container_name: quantoom-client
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+    networks:
+      - quantoom-net
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  quantoom-net:
+    driver: bridge

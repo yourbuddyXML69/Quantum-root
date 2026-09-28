@@ -1,0 +1,26 @@
+{
+  "name": "quantoom-root",
+  "version": "1.0.0",
+  "description": "Quantoom Root — Unified Quantum + AI + Cybersecurity Community Platform",
+  "scripts": {
+    "test": "npm --prefix server test",
+    "build:server": "npm --prefix server run build",
+    "build:client": "npm --prefix client run build",
+    "build": "npm run build:server && npm run build:client",
+    "start:server": "npm --prefix server start",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev"
+  },
+  "keywords": [
+    "quantum-computing",
+    "artificial-intelligence",
+    "cybersecurity",
+    "post-quantum-cryptography",
+    "qiskit",
+    "ctf",
+    "siem",
+    "rag"
+  ],
+  "author": "Quantoom Root Core Team",
+  "license": "Apache-2.0"
+}

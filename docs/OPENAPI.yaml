@@ -1,0 +1,176 @@
+openapi: 3.1.0
+info:
+  title: Quantoom Root Platform API
+  description: Unified API for Quantum Computing Simulation, AI Copilot RAG, Ethical Cyber Range, and Community Hub.
+  version: 1.0.0
+servers:
+  - url: https://api.quantoomroot.io/api/v1
+    description: Production Server
+  - url: http://localhost:4000/api/v1
+    description: Local Development Server
+
+paths:
+  /auth/register:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, username, password]
+              properties:
+                email: { type: string, format: email }
+                username: { type: string }
+                password: { type: string }
+                primaryDomain: { type: string, enum: [QUANTUM, AI, CYBERSECURITY, CONVERGENCE] }
+      responses:
+        '201':
+          description: User registered successfully
+        '400':
+          description: Validation error
+
+  /auth/login:
+    post:
+      summary: Authenticate user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [identifier, password]
+              properties:
+                identifier: { type: string }
+                password: { type: string }
+                mfaCode: { type: string }
+      responses:
+        '200':
+          description: Authentication successful
+
+  /quantum/simulate:
+    post:
+      summary: Execute state-vector simulation of a quantum circuit
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [numQubits, gates]
+              properties:
+                numQubits: { type: integer, minimum: 1, maximum: 16 }
+                gates:
+                  type: array
+                  items:
+                    type: object
+                    required: [gate, targets]
+                    properties:
+                      gate: { type: string, enum: [H, X, Y, Z, S, T, RX, RY, RZ, CNOT, CZ, SWAP, TOFFOLI, MEASURE] }
+                      targets: { type: array, items: { type: integer } }
+                      params: { type: array, items: { type: number } }
+                shots: { type: integer, default: 1024 }
+      responses:
+        '200':
+          description: Statevector, Bloch angles, and measurement counts returned
+
+  /ai/chat:
+    post:
+      summary: Submit prompt to RAG knowledge engine and AI Copilot
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message: { type: string }
+                conversationId: { type: string }
+                model: { type: string, default: "gpt-4o" }
+                ragDomain: { type: string, enum: [ALL, QUANTUM, AI, CYBERSECURITY] }
+      responses:
+        '200':
+          description: AI response with citations
+
+  /ai/review-code:
+    post:
+      summary: Perform static AST security analysis on code
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code, language]
+              properties:
+                code: { type: string }
+                language: { type: string }
+      responses:
+        '200':
+          description: Security vulnerability report
+
+  /cyber/challenges:
+    get:
+      summary: Retrieve all ethical CTF challenges
+      responses:
+        '200':
+          description: List of challenges with difficulty and point values
+
+  /cyber/challenges/{id}/submit-flag:
+    post:
+      summary: Submit flag for challenge verification
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [flag]
+              properties:
+                flag: { type: string }
+      responses:
+        '200':
+          description: Flag evaluation result
+
+  /cyber/siem/events:
+    get:
+      summary: Fetch latest real-time security events and MITRE ATT&CK tags
+      responses:
+        '200':
+          description: Stream of parsed Zeek/Suricata alerts
+
+  /community/feed:
+    get:
+      summary: Retrieve community feed
+      parameters:
+        - name: domain
+          in: query
+          schema: { type: string, enum: [QUANTUM, AI, CYBERSECURITY, CONVERGENCE] }
+        - name: sort
+          in: query
+          schema: { type: string, enum: [hot, new, top] }
+      responses:
+        '200':
+          description: Feed items
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

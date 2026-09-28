@@ -1,0 +1,154 @@
+# Quantoom Root GraphQL Schema
+# Core Schema for Community, Quantum Computations, Cyber Range & AI Copilot
+
+enum DomainCategory {
+  QUANTUM
+  AI
+  CYBERSECURITY
+  CONVERGENCE
+}
+
+enum UserRole {
+  GUEST
+  MEMBER
+  VERIFIED_RESEARCHER
+  MODERATOR
+  ADMIN
+  ENTERPRISE_ADMIN
+  AI_AGENT
+}
+
+enum ChallengeDifficulty {
+  INTRO
+  EASY
+  MEDIUM
+  HARD
+  EXTREME
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  role: UserRole!
+  reputationPoints: Int!
+  profile: Profile
+  badges: [UserBadge!]!
+  createdAt: String!
+}
+
+type Profile {
+  id: ID!
+  displayName: String!
+  bio: String
+  organization: String
+  avatarUrl: String
+  githubHandle: String
+  orcid: String
+  primaryDomain: DomainCategory!
+}
+
+type UserBadge {
+  id: ID!
+  badge: Badge!
+  awardedAt: String!
+}
+
+type Badge {
+  id: ID!
+  name: String!
+  description: String!
+  domain: DomainCategory!
+  iconUrl: String!
+}
+
+type Post {
+  id: ID!
+  title: String!
+  slug: String!
+  content: String!
+  author: User!
+  domain: DomainCategory!
+  isQuestion: Boolean!
+  upvoteCount: Int!
+  commentCount: Int!
+  comments: [Comment!]!
+  createdAt: String!
+}
+
+type Comment {
+  id: ID!
+  content: String!
+  author: User!
+  upvotes: Int!
+  isAccepted: Boolean!
+  createdAt: String!
+}
+
+type StateVectorEntry {
+  basis: String!
+  real: Float!
+  imag: Float!
+  probability: Float!
+}
+
+type BlochVector {
+  qubit: Int!
+  theta: Float!
+  phi: Float!
+  x: Float!
+  y: Float!
+  z: Float!
+}
+
+type SimulationResult {
+  stateVector: [StateVectorEntry!]!
+  blochAngles: [BlochVector!]!
+  measurements: String!
+  executionTimeMs: Float!
+  openQasm: String
+}
+
+type CTFChallenge {
+  id: ID!
+  title: String!
+  slug: String!
+  description: String!
+  category: String!
+  difficulty: ChallengeDifficulty!
+  points: Int!
+  solveCount: Int!
+}
+
+type SIEMEvent {
+  id: ID!
+  timestamp: String!
+  sourceIp: String!
+  destIp: String!
+  protocol: String!
+  severity: String!
+  mitreTechnique: String!
+  description: String!
+}
+
+type Query {
+  me: User
+  feed(domain: DomainCategory, limit: Int = 20, offset: Int = 0): [Post!]!
+  post(id: ID!): Post
+  ctfChallenges: [CTFChallenge!]!
+  leaderboard(limit: Int = 10): [User!]!
+  latestSIEMEvents(limit: Int = 25): [SIEMEvent!]!
+}
+
+type Mutation {
+  createPost(title: String!, content: String!, domain: DomainCategory!, isQuestion: Boolean): Post!
+  addComment(postId: ID!, content: String!): Comment!
+  upvotePost(postId: ID!): Post!
+  simulateCircuit(numQubits: Int!, gatesJson: String!, shots: Int): SimulationResult!
+  submitFlag(challengeId: ID!, flag: String!): Boolean!
+}
+
+type Subscription {
+  newFeedPost: Post!
+  siemAlertStream: SIEMEvent!
+}

@@ -1,0 +1,115 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantoom-server-deployment
+  namespace: quantoom-root
+  labels:
+    app: quantoom-server
+    tier: api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: quantoom-server
+  template:
+    metadata:
+      labels:
+        app: quantoom-server
+    spec:
+      containers:
+        - name: server
+          image: quantoomroot/server:1.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: PQC_STANDARD
+              value: "NIST-FIPS-203-ML-KEM"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: quantoom-secrets
+                  key: jwt-secret
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: quantoom-secrets
+                  key: database-url
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "2000m"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 4000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 4000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quantoom-server-service
+  namespace: quantoom-root
+spec:
+  selector:
+    app: quantoom-server
+  ports:
+    - protocol: TCP
+      port: 4000
+      targetPort: 4000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantoom-client-deployment
+  namespace: quantoom-root
+  labels:
+    app: quantoom-client
+    tier: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: quantoom-client
+  template:
+    metadata:
+      labels:
+        app: quantoom-client
+    spec:
+      containers:
+        - name: client
+          image: quantoomroot/client:1.0.0
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quantoom-client-service
+  namespace: quantoom-root
+spec:
+  selector:
+    app: quantoom-client
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
